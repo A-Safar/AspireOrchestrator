@@ -40,7 +40,9 @@ flowchart TD
     style OTLP fill:#fff3e0
     style DASHBOARD fill:#fce4ec
     style DB fill:#e0f2f1
-```## Features
+```
+
+## Features
 
 ### App1 - Student Management Service
 - Full CRUD operations for student entities
