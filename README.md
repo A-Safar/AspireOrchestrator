@@ -15,19 +15,32 @@ The application consists of:
 - **App1** (`app1`): A Student Management API with CRUD operations and Entity Framework Core
 - **App2** (`app2`): A supporting API service that provides additional endpoints
 
-## Mermaid Diagram
+## Architecture Diagram
 
 ```mermaid
 flowchart TD
-   AH[Aspire Host] -->|Orchestrates| APP1(App1: Student API)
-   AH -->|Orchestrates| APP2(App2: Supporting API)
-   APP1 -- Calls --> APP2
-   APP1 -- OpenTelemetry --> OTLP[(OTLP Collector)]
-   APP2 -- OpenTelemetry --> OTLP
-   OTLP -- Metrics/Traces/Logs --> DASHBOARD[Aspire Dashboard]
-```
-
-## Features
+    AH[🎯 Aspire Host<br/>Orchestrator] -->|🚀 Orchestrates| APP1(📚 App1: Student API<br/>CRUD Operations)
+    AH -->|🚀 Orchestrates| APP2(🏠 App2: Supporting API<br/>Basic Endpoints)
+    
+    APP1 -->|🌐 HTTP Call| APP2
+    
+    APP1 -->|📊 Telemetry| OTLP[(🔄 OTLP Collector<br/>localhost:4317)]
+    APP2 -->|📊 Telemetry| OTLP
+    
+    APP1 -->|💾 Data| DB[(🗄️ In-Memory DB<br/>Student Records)]
+    
+    OTLP -->|📈 Metrics<br/>🔍 Traces<br/>📝 Logs| DASHBOARD[📊 Aspire Dashboard<br/>Observability Portal]
+    
+    USER[👤 User/Client] -->|📱 API Calls| APP1
+    USER -->|🔧 Direct Access| APP2
+    
+    style AH fill:#e1f5fe
+    style APP1 fill:#f3e5f5
+    style APP2 fill:#e8f5e8
+    style OTLP fill:#fff3e0
+    style DASHBOARD fill:#fce4ec
+    style DB fill:#e0f2f1
+```## Features
 
 ### App1 - Student Management Service
 - Full CRUD operations for student entities
