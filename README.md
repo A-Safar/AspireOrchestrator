@@ -8,11 +8,24 @@ This project showcases a distributed application built with .NET Aspire that orc
 
 ## Architecture
 
+
 The application consists of:
 
 - **Aspire Host** (`AspireAppHostPOC`): The orchestrator that manages and coordinates the microservices
 - **App1** (`app1`): A Student Management API with CRUD operations and Entity Framework Core
 - **App2** (`app2`): A supporting API service that provides additional endpoints
+
+## Mermaid Diagram
+
+```mermaid
+flowchart TD
+   AH[Aspire Host] -->|Orchestrates| APP1(App1: Student API)
+   AH -->|Orchestrates| APP2(App2: Supporting API)
+   APP1 -- Calls --> APP2
+   APP1 -- OpenTelemetry --> OTLP[(OTLP Collector)]
+   APP2 -- OpenTelemetry --> OTLP
+   OTLP -- Metrics/Traces/Logs --> DASHBOARD[Aspire Dashboard]
+```
 
 ## Features
 
